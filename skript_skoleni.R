@@ -59,3 +59,13 @@ dams_to_points <- shape_dams %>%
   mutate(id = 1:nrow(.))%>% 
   dplyr::select(id,pass_u,pass_d)
 
+ggplot() +
+  coord_fixed() +
+  theme_minimal() +
+  ggspatial::layer_spatial(shape_basin, fill = NA, color = "gray90") +
+  ggspatial::layer_spatial(shape_river, color="blue")+
+  ggspatial::layer_spatial(dams_to_points, aes(color = factor(pass_u), shape = factor(pass_u)), size=4) + scale_color_manual(values = c("0" = "black", "0.5" = "gray", "1" = "black"), name = "Prostupnost bariér") + scale_shape_manual(values = c("0" = 16, "0.5" = 16, "1" = 21), name = "Prostupnost bariér") +
+  theme(legend.position = "bottom") +
+  ggspatial::annotation_scale(location = "bl", style = "ticks") +
+  ggspatial::annotation_north_arrow(location = "br")+
+  labs(caption = "Prostupnost bariér")
