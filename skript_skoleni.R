@@ -69,3 +69,7 @@ ggplot() +
   ggspatial::annotation_scale(location = "bl", style = "ticks") +
   ggspatial::annotation_north_arrow(location = "br")+
   labs(caption = "Prostupnost bariér")
+
+# Ensure barriers within a certain distance (e.g., 50 meters) are clustered
+# Use `st_is_within_distance` to identify clusters within 50 meters
+clusters <- st_is_within_distance(dams_snapped_reduced, dist = 10)
