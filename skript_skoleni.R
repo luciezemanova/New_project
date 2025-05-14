@@ -54,13 +54,9 @@ shape_river_simplified <- lwgeom::st_split(shape_river_simple, river_joins) %>%
   st_as_sf() %>%
   mutate(length = st_length(.))
 
-ggplot() +
-  coord_fixed() +
-  ggspatial::layer_spatial(shape_river_simplified, aes(color = id))+
-  scale_color_viridis(direction = -1, name= "Reach ID") +
-  ggspatial::layer_spatial(river_joins, shape = 1)+
-  theme_minimal() +
-  theme(legend.position = "bottom")+
-  ggspatial::annotation_scale(location = "bl", style = "ticks") +
-  ggspatial::annotation_north_arrow(location = "br")+
-  labs(caption = "Hollow points are the position of the junctions")
+dams_to_points <- shape_dams %>%
+  st_as_sf %>%
+  mutate(id = 1:nrow(.))%>% 
+  dplyr::select(id,pass_u,pass_d)
+
+
