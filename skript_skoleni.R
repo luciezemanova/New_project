@@ -59,4 +59,3 @@ dams_to_points <- shape_dams %>%
   mutate(id = 1:nrow(.))%>% 
   dplyr::select(id,pass_u,pass_d)
 
-
